@@ -23,7 +23,10 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption(SCREEN_TITLE)
 
 # Initialize Pygame Mixer
-pygame.mixer.init()
+try:
+    pygame.mixer.init()
+except pygame.error as e:
+    print(f"Warning: Could not initialize sound mixer. Sound will be disabled. Error: {e}")
 
 # Font for labels
 font = pygame.font.Font(None, 36) 
@@ -71,18 +74,18 @@ female_button_rect = pygame.Rect(
     BUTTON_WIDTH, BUTTON_HEIGHT
 )
 
-# --- Gene Loci Trivia Data ---
+# --- Gene Loci Trivia Data (Kid-friendly) ---
 GENE_LOCI_TRIVIA = [
-    {"gene_name": "ABO式血液型", "chromosome_type": "9", "explanation": "赤血球の表面にある抗原の型を決定し、ABO血液型を決定します。", "trait": "血液型 (A型, B型, O型, AB型)"},
-    {"gene_name": "赤緑色覚異常", "chromosome_type": "X", "explanation": "網膜にある光を感じる細胞（錐体細胞）が特定の色を識別しにくくなる。", "trait": "赤と緑の色の見え方の違い"},
-    {"gene_name": "鎌状赤血球症", "chromosome_type": "11", "explanation": "ヘモグロビンのβグロビン遺伝子の変異により、赤血球が鎌状になることがある。", "trait": "貧血、感染症への抵抗力変化（マラリア）"},
-    {"gene_name": "ハンチントン病", "chromosome_type": "4", "explanation": "脳の神経細胞が徐々に変性する遺伝性疾患。HTT遺伝子のCAGリピート伸長が原因。", "trait": "舞踏運動、認知機能障害、精神症状"},
-    {"gene_name": "SRY遺伝子", "chromosome_type": "Y", "explanation": "主に男性の性決定に関与する遺伝子。この遺伝子があると、胎児は男性に分化する。", "trait": "男性への分化"},
-    {"gene_name": "CFTR遺伝子", "chromosome_type": "7", "explanation": "細胞膜での塩化物イオンの輸送を調節するタンパク質をコード。変異は嚢胞性線維症を引き起こす。", "trait": "汗の塩分濃度、消化器・呼吸器系の機能"},
-    {"gene_name": "乳糖不耐症", "chromosome_type": "2", "explanation": "LCT遺伝子の調節領域の変異により、成人期にラクターゼ（乳糖分解酵素）の産生が低下する。", "trait": "乳製品摂取後の消化器症状"},
-    {"gene_name": "BRCA1遺伝子", "chromosome_type": "17", "explanation": "DNA修復に関与するタンパク質をコード。変異は乳がんや卵巣がんのリスクを高める。", "trait": "遺伝性乳がん・卵巣がん症候群のリスク"},
-    {"gene_name": "ALDH2遺伝子", "chromosome_type": "12", "explanation": "アルコールの代謝に関わる酵素をコード。変異はアセトアルデヒドの蓄積を引き起こし、飲酒後の不快な反応の原因となる。", "trait": "アルコールへの耐性、フラッシング反応"},
-    {"gene_name": "TAS2R38遺伝子", "chromosome_type": "7", "explanation": "苦味受容体の一種をコード。特定の苦味化合物に対する感受性に関与。", "trait": "PTCなどの苦味物質に対する味覚感受性"}
+    {"gene_name": "きみの けつえきがた", "chromosome_type": "9", "explanation": "きみの けつえきがたを きめている いでんしだよ。", "trait": "とくちょう: A, B, O, ABがたの けつえきがたが あるね。"},
+    {"gene_name": "いろの みえかた", "chromosome_type": "X", "explanation": "あかや みどりの いろの みえかたに かんけいするよ。", "trait": "とくちょう: ひとによって、すこしだけ いろの みえかたが ちがうことが あるんだ。"},
+    {"gene_name": "ぎゅうにゅうを のむちから", "chromosome_type": "2", "explanation": "ぎゅうにゅうを のんだあと、おなかが ゴロゴロしちゃうか きめる いでんし。", "trait": "とくちょう: おとなに なっても ぎゅうにゅうを ごくごく のめるかな？"},
+    {"gene_name": "おさけの つよさ", "chromosome_type": "12", "explanation": "おとなに なったとき、おさけに よいやすいか どうかに かんけいするよ。", "trait": "とくちょう: これは まだ さきの はなしだけどね！"},
+    {"gene_name": "おとこのこに なるスイッチ", "chromosome_type": "Y", "explanation": "この いでんしが あると、おとこのこに なるんだ。とても だいじな スイッチだね。", "trait": "とくちょう: Yせんしょくたい だけが もっているんだ。"},
+    {"gene_name": "みみあかの タイプ", "chromosome_type": "16", "explanation": "みみあかが カサカサか、ベトベトか に かんけいする いでんし。", "trait": "とくちょう: びっくりするけど、これも いでんで きまるんだよ！"},
+    {"gene_name": "かみのけの しつ", "chromosome_type": "1", "explanation": "かみのけが まっすぐか、くるくるか に かんけいするよ。", "trait": "とくちょう: ストレートヘアも、てんねんパーマも、いでんしが きめているんだ。"},
+    {"gene_name": "ひかりで くしゃみ", "chromosome_type": "2", "explanation": "つよい ひかりを みると、くしゃみが でるか どうかに かんけいするよ。", "trait": "とくちょう: たいようを みあげて「ハックション！」となるのは、いでんしかも？"},
+    {"gene_name": "そばかす", "chromosome_type": "16", "explanation": "ひに あたると、かおや うでに できる ちいさな てんてん。", "trait": "とくちょう: この いでんしを もっていると、そばかすが できやすいんだ。"},
+    {"gene_name": "ふしぎな におい", "chromosome_type": "1", "explanation": "アスパラガスを たべたあと、おしっこの においが わかるかな？", "trait": "とくちょう: においを かんじる人と かんじない人が いる、ふしぎな いでんしだよ。"}
 ]
 
 # --- Chromosome Data ---
@@ -120,6 +123,12 @@ except pygame.error as e:
         def play(self): pass
     correct_sound = DummySound()
     incorrect_sound = DummySound()
+
+try:
+    pygame.mixer.music.load('bgm.ogg')
+    pygame.mixer.music.play(-1)  # -1 means loop indefinitely
+except pygame.error as e:
+    print(f"Warning: BGM file not found. {e}")
 
 mistake_count = 0
 current_trivia_message = None
@@ -162,7 +171,7 @@ def load_chromosome_image(filename, display_id_for_placeholder, width, height):
     try:
         image = pygame.image.load(filename)
         image = pygame.transform.scale(image, (width, height))
-    except pygame.error:
+    except (pygame.error, FileNotFoundError):
         image = pygame.Surface((width, height))
         image.fill(CHROMOSOME_PLACEHOLDER_BG)
         pygame.draw.rect(image, CHROMOSOME_BORDER_COLOR, image.get_rect(), 1)
@@ -256,6 +265,11 @@ def draw_karyotype_template_area(gender):
     karyotype_label_text = font.render(gender_specific_title, True, TEXT_COLOR)
     karyotype_label_rect = karyotype_label_text.get_rect(midtop=(karyotype_template_area_rect.centerx, karyotype_template_area_rect.top + 10))
     screen.blit(karyotype_label_text, karyotype_label_rect)
+
+    # This value is also used in initialize_chromosomes_and_slots.
+    # A global constant would be a better solution in a future refactor.
+    pair_padding = 5
+
     for slot in karyotype_slots:
         pygame.draw.rect(screen, CHROMOSOME_BORDER_COLOR, slot['rect'], 2)
         label_text = slot['label'] 
